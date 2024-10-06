@@ -5,12 +5,17 @@
 # to select for which function you would like to use. You will them enter on the command line the operation 
 # or word for which to type and a return value will be used to determine if the operation was successful or not.
 
+# All questions for assignment 1 are answered in this file. For questions that are just plain text, comment
+# blocks are used
+
 # I chose to go with a menu for simplicity and ease of running since there is one central file, rather than using Pytest
 
+
+# Main function, which calls menu. Could have relly just put everything within menu within main.
 def main():
     menu()
-
-    
+ 
+# This is where the meat of the running program happens. 
 def menu():
     while True:
         print("Please select an option from the following menu:")
@@ -18,11 +23,12 @@ def menu():
         print("2. Palindrome Checker With Loop Operations")
         print("3. Stacks and Queues")
         print("4. Factorial")
-        print("5. Exit")
+        print("5. AST and Reverse Operator Precedence Tree")
+        print("6. Exit")
 
         try:
             choice = int(input("Enter a number: "))
-            if 1 <= choice <= 5:
+            if 1 <= choice <= 6:
 
                 # Choice for the string operation palindrom checker
                 if choice == 1:
@@ -125,9 +131,46 @@ def menu():
                     except ValueError:
                         print("Invalid choice. Please enter a number between 1 and 2")
 
-                # Choice to exit the program
+
+                # Choice for the AST and Reverse Operator Precedence Tree
                 elif choice == 5:
-                    print("\nGoodbye!")
+                    print("\nWelcome to the AST and Reverse Operator Precedence Tree tester!")
+                    print("Given the expression 1 + 2 * 3^4 - 5, we can represent this as an AST")
+                    print("The AST would look like: ")
+
+                    root = Node("-")
+                    root.left = Node("+")
+                    root.right = Node("5")
+                    root.left.left = Node("1")
+                    root.left.right = Node("*")
+                    root.left.right.left = Node("2")
+                    root.left.right.right = Node("^")
+                    root.left.right.right.left = Node("3")
+                    root.left.right.right.right = Node("4")
+
+                    print("\n\nThe AST would look like: ")
+                    print_tree(root)
+                    print(root)
+
+                    print("\n\nThe reversed operator precedence tree would look like: ")
+                    reversed_root = Node("^")
+                    reversed_root.left = Node("3")
+                    reversed_root.right = Node("4")
+                    reversed_root.left = Node("*")
+                    reversed_root.left.left = Node("2")
+                    reversed_root.left.right = Node("+")
+                    reversed_root.left.right.left = Node("1")
+                    reversed_root.left.right.right = Node("-")
+                    reversed_root.left.right.right.right = Node("5")
+
+                    print_tree(reversed_root)
+                    print(reversed_root)
+
+                    print("\nEnd of AST and Reverse Operator Precedence Tree tester\n\n")
+
+                # Choice to exit the program
+                elif choice == 6:
+                    print("\nGoodbye!\n")
                     break
 
             # Else block checking for invalid choices
@@ -217,8 +260,59 @@ def fac2(n):
         result *= i
     return result
 
+# Question 4:
+# Part a:
+# Given the expression: 
+# 1 + 2 * 3^4 - 5
+# An AST for said expression would look like: 
+#           -
+#          /  \
+#         +    5
+#       /   \
+#      1     *
+#           /  \
+#          2    ^
+#              /  \
+#             3    4
+# Expressed in linear form : [ - [ +1 [ *2 [ ^3 4 ] 5 ]]
 
+# Part b:
+# The reversed operator precendence tree would look like: 
+#         ^
+#        / \
+#       3   4
+#       *
+#      / \ 
+#     2   +
+#        / \
+#       1   -
+#            \ 
+#             5
+# Where the lowest precedence operator is at the top of the tree
+# In Linear form: [ ^3 4 [ *2 [ +1 [-5] ]]]
+# This expression would evaluate to 104,976. while the original expression evaluates to 158
 
+# Question 5: 
+# Define Python classes for the AST nodes (which should correspond to the operators in the above expression).
+# Construct a tree object for each of the two ASTs
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def __repr__(self):
+        return f"Node({self.value})"    
+
+def print_tree(node, prefix="", is_left=True):
+    if node is not None:
+        print(prefix, "`- " if is_left else "+- ", node.value, sep="")
+        new_prefix = prefix + ("|  " if is_left else "   ")
+        print_tree(node.left, new_prefix, True)
+        print_tree(node.right, new_prefix, False)
+
+# Defining Main for running the program 
 if __name__ == "__main__":
     main()
     
