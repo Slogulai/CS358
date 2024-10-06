@@ -106,7 +106,24 @@ def menu():
 
                 # Choice for the factorial
                 elif choice == 4:
-                    print("\nFactorial functionality is not implemented yet.")
+                    print("\nWelcome to the Factorial tester!")
+                    print("1. Press 1 for recursive factorial")
+                    print("2. Press 2 for loop factorial")
+
+                    try:
+                        factorial_choice = int(input("Enter a number: "))
+                        if factorial_choice == 1:
+                            n = int(input("Enter a number to find the factorial of: "))
+                            result = fac1(n)
+                            print(f"\nThe factorial of {n} is {result}\n")
+                        elif factorial_choice == 2:
+                            n = int(input("Enter a number to find the factorial of: "))
+                            result = fac2(n)
+                            print(f"\nThe factorial of {n} is {result}\n")
+                        else:
+                            print("Invalid choice. Please enter a number between 1 and 2")
+                    except ValueError:
+                        print("Invalid choice. Please enter a number between 1 and 2")
 
                 # Choice to exit the program
                 elif choice == 5:
@@ -154,29 +171,31 @@ def palindrome2(str):
 # enqueue(q,x) — add x to the tail of queue q, return the modified queue
 # dequeue(q) — remove an item from the head of queue q, return the item
 
+#Using a function and list for the stack, per the assignment
 def newstack():
     return []
 
 def push(stack, x):
-    stack.append(x)
+    stack.append(x) #appending to the end with the stack
     return stack
 
 def pop(stack):
     if stack:
-        return stack.pop()
+        return stack.pop() #removing from the end of the stack
     else:
         raise IndexError("Stack is already empty")
 
+#Using a function and list for the queue, per the assignment
 def newqueue():
     return []
 
 def enqueue(queue, x):
-    queue.append(x)
+    queue.append(x) #Appending to the end of the queue
     return queue
 
 def dequeue(queue):
     if queue:
-        return queue.pop(0)
+        return queue.pop(0) #removing from the front of the queue given its structure
     else:
         raise IndexError("Queue is already empty")
     
@@ -187,9 +206,16 @@ def dequeue(queue):
 # fac2(n) – implement with a loop
 
 def fac1(n):
-    pass
+    if n == 0:
+        return 1
+    else:
+        return n * fac1(n-1)
+
 def fac2(n):
-    pass
+    result = 1
+    for i in range(1, n+1):
+        result *= i
+    return result
 
 
 
