@@ -5,6 +5,8 @@
 # to select for which function you would like to use. You will them enter on the command line the operation 
 # or word for which to type and a return value will be used to determine if the operation was successful or not.
 
+# I chose to go with a menu for simplicity and ease of running since there is one central file, rather than using Pytest
+
 def main():
     menu()
 
@@ -44,7 +46,63 @@ def menu():
                 
                 # Choice for the stacks and queues
                 elif choice == 3:
-                    print("\nWelcome to Stacks and Queues!")
+                    print("\n\nWelcome to Stacks and Queues!")
+                    print("1. Press 1 for stacks")
+                    print("2. Press 2 for queues")
+
+                    try: 
+                        stack_queue_choice = int(input("Enter a number: "))
+                        if stack_queue_choice == 1:
+                            print("\n\nYou have selected stacks")
+                            stack = newstack()
+                            print("\n1. Press 1 to push an item onto the stack")
+                            print("2. Press 2 to pop an item off the stack")
+                            print("3. Press 3 to exit the stack")
+
+                            while True:
+                                stack_choice = int(input("\nEnter a number (1 - 3): "))
+                                if stack_choice == 1:
+                                    item = input("\nEnter an item to push onto the stack: ")
+                                    stack = push(stack, item)
+                                    print(f"\n{item} has been pushed onto the stack")
+                                    print(f"\nCurrent stack: {stack}")
+                                elif stack_choice == 2:
+                                    item = pop(stack)
+                                    print(f"\n{item} has been popped off the stack")
+                                    print(f"\nCurrent stack: {stack}")
+                                elif stack_choice == 3:
+                                    print("\nExiting the stack")
+                                    break
+                                else:
+                                    print("Invalid choice. Please enter a number between 1 and 3")
+
+                        elif stack_queue_choice == 2:
+                            print("\nYou have selected queues")
+                            queue = newqueue()
+                            print("\n1. Press 1 to enqueue an item onto the queue")
+                            print("2. Press 2 to dequeue an item off the queue")
+                            print("3. Press 3 to exit the queue")
+
+                            while True:
+                                queue_choice = int(input("\nEnter a number (1 - 3): "))
+                                if queue_choice == 1:
+                                    item = input("\nEnter an item to enqueue onto the queue: ")
+                                    queue = enqueue(queue, item)
+                                    print(f"\n{item} has been enqueued onto the queue")
+                                    print(f"\nCurrent queue: {queue}")
+                                elif queue_choice == 2:
+                                    item = dequeue(queue)
+                                    print(f"\n{item} has been dequeued off the queue")
+                                    print(f"\nCurrent queue: {queue}")
+                                elif queue_choice == 3:
+                                    print("\nExiting the queue")
+                                    break
+                                else:
+                                    print("Invalid choice. Please enter a number between 1 and 3")
+                        else:
+                            print("Invalid choice. Please enter a number between 1 and 2")
+                    except ValueError:
+                        print("Invalid choice. Please enter a number between 1 and 2")
 
                 # Choice for the factorial
                 elif choice == 4:
@@ -78,12 +136,15 @@ def palindrome1(str):
 
 
 def palindrome2(str):
+    #Creating a cleaned string for later reversal
     cleaned_string = "".join(e for e in str if e.isalnum()).lower()
 
+    #Getting the length of the cleaned string for my loop
     length = len(cleaned_string)
+    #Looping through the string to check if its a palindrome
     for i in range(length//2):
         if cleaned_string[i] != cleaned_string[length - i - 1]:
-            return False
+            return False #Return false if a character doenst match
     return True
 
 # Question 2: Stacks and queues!
@@ -93,35 +154,31 @@ def palindrome2(str):
 # enqueue(q,x) — add x to the tail of queue q, return the modified queue
 # dequeue(q) — remove an item from the head of queue q, return the item
 
-class Stack:
-    def __init__(self):
-        self.stack = []
-    
-    #Add an item to the stack
-    def push(self, x):
-        self.stack.append(x)
-    
-    #Pop from the stack and error check in case its empty
-    def pop(self):
-        if not self.is_empty():
-            return self.stack.pop()
-        else:
-            return IndexError("Stack is empty")
+def newstack():
+    return []
 
-class Queue:
-    def __init__(self):
-        self.queue = []
-    
-    #Add an item to the end of the queue
-    def enqueue(self, x):
-        self.queue.append(x)
-    
-    #Remove an item from the front of the queue and error check in case its empty
-    def dequeue(self):
-        if not self.is_empty():
-            return self.queue.pop(0)
-        else:
-            return IndexError("Queue is empty")
+def push(stack, x):
+    stack.append(x)
+    return stack
+
+def pop(stack):
+    if stack:
+        return stack.pop()
+    else:
+        raise IndexError("Stack is already empty")
+
+def newqueue():
+    return []
+
+def enqueue(queue, x):
+    queue.append(x)
+    return queue
+
+def dequeue(queue):
+    if queue:
+        return queue.pop(0)
+    else:
+        raise IndexError("Queue is already empty")
     
 
 # Question 3: 
