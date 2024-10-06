@@ -150,7 +150,6 @@ def menu():
 
                     print("\n\nThe AST would look like: ")
                     print_tree(root)
-                    print(root)
 
                     print("\n\nThe reversed operator precedence tree would look like: ")
                     reversed_root = Node("^")
@@ -164,7 +163,6 @@ def menu():
                     reversed_root.left.right.right.right = Node("5")
 
                     print_tree(reversed_root)
-                    print(reversed_root)
 
                     print("\nEnd of AST and Reverse Operator Precedence Tree tester\n\n")
 
@@ -305,9 +303,10 @@ class Node:
     def __repr__(self):
         return f"Node({self.value})"    
 
+# Recursive function to print the tree in a visual way that represents its height and branches
 def print_tree(node, prefix="", is_left=True):
     if node is not None:
-        print(prefix, "`- " if is_left else "+- ", node.value, sep="")
+        print(prefix, "" if is_left else " ", node.value, sep="")
         new_prefix = prefix + ("|  " if is_left else "   ")
         print_tree(node.left, new_prefix, True)
         print_tree(node.right, new_prefix, False)
