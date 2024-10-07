@@ -74,7 +74,8 @@ def menu():
                                     print(f"\nCurrent stack: {stack}")
                                 elif stack_choice == 2:
                                     item = pop(stack)
-                                    print(f"\n{item} has been popped off the stack")
+                                    if item is not None:
+                                        print(f"\n{item} has been popped off the stack")
                                     print(f"\nCurrent stack: {stack}")
                                 elif stack_choice == 3:
                                     print("\nExiting the stack")
@@ -98,7 +99,8 @@ def menu():
                                     print(f"\nCurrent queue: {queue}")
                                 elif queue_choice == 2:
                                     item = dequeue(queue)
-                                    print(f"\n{item} has been dequeued off the queue")
+                                    if item is not None:
+                                        print(f"\n{item} has been dequeued off the queue")
                                     print(f"\nCurrent queue: {queue}")
                                 elif queue_choice == 3:
                                     print("\nExiting the queue")
@@ -221,10 +223,11 @@ def push(stack, x):
     return stack
 
 def pop(stack):
-    if stack:
+    try:
         return stack.pop() #removing from the end of the stack
-    else:
-        raise IndexError("Stack is already empty")
+    except IndexError:
+        print("\nStack is already empty")
+        return None
 
 #Using a function and list for the queue, per the assignment
 def newqueue():
@@ -235,16 +238,16 @@ def enqueue(queue, x):
     return queue
 
 def dequeue(queue):
-    if queue:
+    try:
         return queue.pop(0) #removing from the front of the queue given its structure
-    else:
-        raise IndexError("Queue is already empty")
-    
+    except IndexError:
+        print("\nQueue is already empty")
+        return None    
 
 # Question 3: 
 # Write two versions of a factorial function: 
 # fac1(n) – implement with recursion
-# fac2(n) – implement with a loop
+# fac2(n) – implement with a looa
 
 def fac1(n):
     if n == 0:
