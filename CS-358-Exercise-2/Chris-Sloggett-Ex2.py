@@ -4,6 +4,8 @@
 from lark import Lark, v_args
 from lark.visitors import Interpreter
 @v_args(inline=True)
+
+# Eval class that inherits from Interpreter
 class Eval(Interpreter):
     def num(self, val):
         return int(val)
@@ -16,6 +18,8 @@ class Eval(Interpreter):
     def div(self, left, right):
         return Eval().visit(left) / Eval().visit(right)
     
+    
+# Grammar for the calculator
 grammar = """
     start: expr
     expr: expr "+" term -> add
@@ -28,6 +32,8 @@ grammar = """
         | "(" expr ")"
     %import common.NUMBER
 """  
+
+# Create the parser
 parser = Lark(grammar , start='start')
 
 
