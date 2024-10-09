@@ -36,7 +36,7 @@ def menu():
                     to_check = input("Enter a string to check if it is a palindrome: ")
                     is_true = palindrome1(to_check)
                     if is_true:
-                        print("\nThe string is a palindrome\n\n")
+                        print("\nThe string is a palindrome!\n\n")
                     else:
                         print("\nThe string is not a palindrome\n\n")
 
@@ -46,7 +46,7 @@ def menu():
                     to_check = input("Enter a string to check if it is a palindrome: ")
                     is_true = palindrome2(to_check)
                     if is_true:
-                        print("\nThe string is a palindrome\n\n")
+                        print("\nThe string is a palindrome!\n\n")
                     else:
                         print("\nThe string is not a palindrome\n\n")
                 
@@ -119,19 +119,19 @@ def menu():
                     print("2. Press 2 for loop factorial")
 
                     try:
-                        factorial_choice = int(input("Enter a number: "))
+                        factorial_choice = int(input("\nEnter a number: "))
                         if factorial_choice == 1:
-                            n = int(input("Enter a number to find the factorial of: "))
+                            n = int(input("\nEnter a number to find the factorial of (Max of 999 or stack overflow): "))
                             result = fac1(n)
                             print(f"\nThe factorial of {n} is {result}\n")
                         elif factorial_choice == 2:
-                            n = int(input("Enter a number to find the factorial of: "))
+                            n = int(input("\nEnter a number to find the factorial of (If the number is big, be ready to wait): "))
                             result = fac2(n)
                             print(f"\nThe factorial of {n} is {result}\n")
                         else:
-                            print("Invalid choice. Please enter a number between 1 and 2")
+                            print("\nInvalid choice. Please enter a number between 1 and 2")
                     except ValueError:
-                        print("Invalid choice. Please enter a number between 1 and 2")
+                        print("\nInvalid choice. Please enter a number between 1 and 2")
 
 
                 # Choice for the AST and Reverse Operator Precedence Tree
