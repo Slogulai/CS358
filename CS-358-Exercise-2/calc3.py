@@ -3,7 +3,6 @@
 
 from lark import Lark, v_args
 from lark.visitors import Interpreter
-@v_args(inline=True)
 
 # Eval class that inherits from Interpreter
 @v_args(inline=True)
@@ -23,16 +22,15 @@ class Eval(Interpreter):
 grammar = """
     start: expr
     expr: expr "+" term -> add
-         | expr "-" term -> sub
-         | term
+        | expr "-" term -> sub
+        | term
     term: term "*" atom -> mul
-         | term "/" atom -> div
-         | atom
-    atom: NUM -> num
-         | "(" expr ")"
-    %import common.NUM
-    %import common.WS
-    %ignore WS
+        | term "/" atom -> div
+        | atom
+    atom: "(" expr ")"
+        | NUM
+    %import common.INT ->  NUM
+    %ignore " "
 """  
 
 # Create the parser
