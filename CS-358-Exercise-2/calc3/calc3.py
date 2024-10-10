@@ -21,13 +21,13 @@ class Eval(Interpreter):
 # Grammar for the calculator
 grammar = """
     start: expr
-    expr: expr "+" term 
+    !?expr: expr "+" term 
         | expr "-" term
         | term
-    term: term "*" atom
+    !?term: term "*" atom
         | term "/" atom
         | atom
-    atom: "(" expr ")"
+    !?atom: "(" expr ")"
         | NUM
     %import common.INT ->  NUM
     %ignore " "
@@ -38,11 +38,6 @@ parser = Lark(grammar)
 
 def main(): 
     
-#    prog_test1 = "2/2-2*2+2"
-#    tree_test = parser.parse(prog_test1)
-#    print(tree_test.pretty())
-#    print("tree.Eval() =", Eval().visit(tree_test))
-#
     while True:
         try:
             prog = input("\nEnter an expression: ")
