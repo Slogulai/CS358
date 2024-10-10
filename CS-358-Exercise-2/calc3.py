@@ -36,8 +36,6 @@ grammar = """
 # Create the parser
 parser = Lark(grammar , start='start')
 
-
-
 def main(): 
 
     while True:
@@ -50,15 +48,6 @@ def main():
             break
         except Exception as e:
             print(e)
-            
-    
-#    prog = "2*3-(1+4)"
-#    tree = parser.parse(prog)
-#    print(tree.pretty())
-#    
-#    prog2 = "2*3-(1+4)"
-#    tree2 = parser.parse(prog2)
-#    print(tree2.pretty())   
 
 if __name__ == "__main__":
     main()
