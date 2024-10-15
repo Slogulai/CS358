@@ -10,19 +10,19 @@ class Eval(Interpreter):
     def num(self, val):
         return int(val)
     def add(self, left, right):
-        return left + right
+        return Eval().visit(left) + Eval().visit(right)
     def sub(self, left, right):
-        return left - right
+        return Eval().visit(left) - Eval().visit(right)
     def mul(self, left, right):
-        return left * right
+        return Eval().visit(left) * Eval().visit(right)
     def div(self, left, right):
-        return left / right
+        return Eval().visit(left) / Eval().visit(right)
     
     def numNodes(self, tree):
         if isinstance(tree, Tree):
             return 1 + sum(self.numNodes(child) for child in tree.children)
         else:
-            return 1
+            return 0
 
     def count1s(self, tree):
         if isinstance(tree, Tree):
@@ -32,30 +32,33 @@ class Eval(Interpreter):
     
     def toList(self, tree):
         if isinstance(tree, Tree):
-            return [tree.data] + [self.toList(child) for child in tree.children]
+            if tree.data in {'add', 'sub', 'mul', 'div'}:
+                operator = {'add': '+', 'sub': '-', 'mul': '*', 'div': '/'}[tree.data]
+                return [operator] + [self.toList(child) for child in tree.children]
+            else:
+                return [self.toList(child) for child in tree.children]
         else:
-            return [str(tree)]
+            return int(tree) if tree.type == 'NUM' else str(tree)
+
     
 # Grammar for the calculator
 grammar = """
-    start: expr
-    ?expr: expr "+" term 
-        | expr "-" term
+    ?expr: expr "+" term -> add
+        | expr "-" term -> sub
         | term
-    ?term: term "*" atom
-        | term "/" atom
+    ?term: term "*" atom -> mul
+        | term "/" atom -> div
         | atom
-    ?atom: "(" expr ")"
-        | NUM
-    %import common.INT ->  NUM
-    %import common.NUMBER
+    ?atom: "(" expr ")" 
+        | NUM -> num
+    %import common.NUMBER ->  NUM
     %import common.WS
     %ignore WS
     %ignore " "
 """  
 
 # Create the parser
-parser = Lark(grammar)
+parser = Lark(grammar, start="expr", parser="lalr")
 
 def main(): 
     
