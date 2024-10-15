@@ -10,13 +10,13 @@ class Eval(Interpreter):
     def num(self, val):
         return int(val)
     def add(self, left, right):
-        return Eval().visit(left) + Eval().visit(right)
+        return left + right
     def sub(self, left, right):
-        return Eval().visit(left) - Eval().visit(right)
+        return left - right
     def mul(self, left, right):
-        return Eval().visit(left) * Eval().visit(right)
+        return left * right
     def div(self, left, right):
-        return Eval().visit(left) / Eval().visit(right)
+        return left / right
     
     def numNodes(self, tree):
         if isinstance(tree, Tree):
@@ -39,10 +39,18 @@ class Eval(Interpreter):
 # Grammar for the calculator
 grammar = """
     start: expr
-    !?expr: (expr "+" term | expr "-" term)*
-    !?term: (term "*" atom | term "/" atom)*
-    !atom: "(" expr ")" | NUM
-    NUM: /\d+/
+    ?expr: expr "+" term 
+        | expr "-" term
+        | term
+    ?term: term "*" atom
+        | term "/" atom
+        | atom
+    ?atom: "(" expr ")"
+        | NUM
+    %import common.INT ->  NUM
+    %import common.NUMBER
+    %import common.WS
+    %ignore WS
     %ignore " "
 """  
 
