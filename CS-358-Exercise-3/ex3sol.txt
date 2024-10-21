@@ -1,0 +1,101 @@
+Christopher Sloggett
+CS 358 Fall 2024
+
+Q1.) Write a regular expression that will match entire lines (Strings without and embedded newline) that:
+
+    a.) Start and end with top
+    b.) Contain both top and pot (in either order)
+    c.) Does not contain tt 
+
+    The expression I was able to create was: 
+                ^(t?[^t])*t?$
+    This expression was able to match the entire line for the expression ((a(b*)c)|(de))
+
+Q2.) 
+    Give a regular expression for hexadeximal constants:
+        
+        0x[0-9a-f]+
+
+    Give three regular expressions for the set of even-valued integer constants
+
+    a.) Decimal even valued integer constants:
+        0|([1-9][0-9]*[02468])
+    b.) Octal even valued integer constants:
+        0[0-7]*[02468]
+    c.) Hexadecimal even valued integer constants:
+        0x[0-9a-f]*[02468ace]
+
+Q3.) Consider the following CFG
+        E -> E + E | x
+    where + and x are terminals
+
+    a.) Describe the language defined by this grammar
+        The language defined by this grammer includes the single terminal x and any number of x's
+        combined with the + operator. 
+    
+    b.) Show that this grammer is ambiguous by finding a sentence that has two dinstinct parse trees.
+
+        Consider the expression x + x + x
+
+        Tree 1:             Tree 2:
+            E                   E
+           /|\                 /|\
+          E + E               E + E
+         /|\   \             /   /|\
+        E + E   x           x   E + E
+       /     \                 /     \
+      x       x               x       x
+
+      Tree 1 is a left associative parse of the expression while Tree 2 is a right
+      associative parse of the expression. This shows that the grammer is ambiguous.
+
+    c.) Find an unambiguous grammer that defines the same language
+
+            E-> E + T | T
+            T-> x
+
+        The above grammar is unambiguous because the + operator is left associative, removing the ambiguouity
+
+    d.) It turns out the language defined by this grammar is regular. Find a regular expression for it.
+
+        x(\+x)*
+
+        This regular expression will match one or more x symbols with the + operator.
+    
+
+Q4.) Consider one of the ambiguity grammar examples from this week’s lecture:
+        
+        S -> if e then S else S | if e then S | other
+    
+    For the purposes of this exercise, we use terminal symbols e and other as placeholders for expressions and
+    (other forms of) statement, respectively; in a real language, these would actually be defined by nonterminals.
+    Show that this grammar is ambiguous by finding a string that has two different parse trees. Write down
+    left-most deriviations and/or draw the parse trees.
+    
+    Consider the expression:
+        if e then if e then S else S 
+    There are two possible parse trees for this expression since the else can be associated with the inner or outer
+    if statement. 
+
+        Tree 1                                   Tree 2
+             S                                     S 
+          / / \ \                              / / |    \  \  \ 
+         if e then S                          if e then S else S
+               / / | \ \ \                           / /| \
+             if e then S else S                    if e then S
+    
+    The implied interpretations are:
+        Tree 1: if e then (if e then S) else S
+        Tree 2: if e then (if e then S else S)
+
+Q5.) Consider the set of perfectly nested parentheses: {(), (()), ((())), ...}.
+    (a) Provide a context-free grammar for this set.
+    (b) Now consider the set of perfectly nested parentheses and brackets: {(), [], [[]], ([]), [(())],
+    ...}. Provide a context-free grammar for it.
+    
+    
+    
+    
+    
+    
+    
