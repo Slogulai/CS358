@@ -4,26 +4,35 @@ CS 358 Fall 2024
 Q1.) Write a regular expression that will match entire lines (Strings without and embedded newline) that:
 
     a.) Start and end with top
+        ^top.*top$ -- Any string in between top and top works
+
     b.) Contain both top and pot (in either order)
+        ^top.*pot$  -- This must start with top and end with pot
+
     c.) Does not contain tt 
+        ^(?!.*tt).*$ -- This will match any string that does not contain tt
 
-    The expression I was able to create was: 
-                ^(t?[^t])*t?$
-    This expression was able to match the entire line for the expression ((a(b*)c)|(de))
+    If we are to merge all these conditions together, we end up with the expression:
+        ^(?=.*top)(?=.*pot)(?!.*tt).*top.*top$
 
+    Testing this with the string topsomethingpotntop, I found that it matches the entire string
+
+~
 Q2.) 
     Give a regular expression for hexadeximal constants:
-        
         0x[0-9a-f]+
 
     Give three regular expressions for the set of even-valued integer constants
 
     a.) Decimal even valued integer constants:
         0|([1-9][0-9]*[02468])
+
     b.) Octal even valued integer constants:
         0[0-7]*[02468]
+
     c.) Hexadecimal even valued integer constants:
         0x[0-9a-f]*[02468ace]
+
 
 Q3.) Consider the following CFG
         E -> E + E | x
@@ -72,6 +81,7 @@ Q4.) Consider one of the ambiguity grammar examples from this week’s lecture:
     Show that this grammar is ambiguous by finding a string that has two different parse trees. Write down
     left-most deriviations and/or draw the parse trees.
     
+    Answer:
     Consider the expression:
         if e then if e then S else S 
     There are two possible parse trees for this expression since the else can be associated with the inner or outer
@@ -88,11 +98,15 @@ Q4.) Consider one of the ambiguity grammar examples from this week’s lecture:
         Tree 1: if e then (if e then S) else S
         Tree 2: if e then (if e then S else S)
 
+
 Q5.) Consider the set of perfectly nested parentheses: {(), (()), ((())), ...}.
     (a) Provide a context-free grammar for this set.
     (b) Now consider the set of perfectly nested parentheses and brackets: {(), [], [[]], ([]), [(())],
     ...}. Provide a context-free grammar for it.
-    
+
+    a.) S -> (S) | ε
+
+    b.) S -> (S) | [S] | ε
     
     
     
