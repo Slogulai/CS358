@@ -72,25 +72,18 @@ class Eval(Interpreter):
         result = self.visit(body_expr)
         env.retract(name)
         return result
-
     def add(self, left, right):
         return self.visit(left) + self.visit(right)
-
     def sub(self, left, right):
         return self.visit(left) - self.visit(right)
-
     def mul(self, left, right):
         return self.visit(left) * self.visit(right)
-
     def div(self, left, right):
         return self.visit(left) / self.visit(right)
-
     def group(self, expr):
         return self.visit(expr)
-
     def var(self, name):
         return env.lookup(name)
-
     def num(self, value):
         return int(value)
 

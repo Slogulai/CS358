@@ -1,0 +1,16 @@
+Christopher Sloggett
+CS 358 Fall 2024
+HW1 Summary
+
+For homework 1, I found myself drawing from my previous exercises for examples on what to do
+as writing grammar is a not very straighforward task. The Eval class is one example where 
+its not implemented the same in every way. For example, for all of the functions of my grammar,
+in my Eval class for both boolex and letex, I found myself returning a visit to the left and right
+of the tree rather than in the original exercises where we returned Eval().visit(self). When
+using the Eval class within its own functions, it included more information within the tree
+than what was really needed. Another note was creating a start point when making my parser,
+eg start='expr0' or start='orex', otherwise I would define a start within the grammar itself.
+
+The programs currently run all tests I conduct, which is assuring. The strForm function within
+boolex was one of the harder functions to figure out that required many lookups, however, once
+it worked I knew I could progress with the rest of the assignment.
