@@ -33,12 +33,15 @@ parser = Lark(grammar)
 #
 class Env(dict):
     def extend(self,x,v):
+        pass
         # ...
 
     def lookup(self,x): 
+        pass
         # ... 
 
     def retract(self,x):
+        pass
         # ...
 
 env = Env()
@@ -50,6 +53,7 @@ env = Env()
 #
 @v_args(inline=True)
 class Eval(Interpreter):
+        pass
 
     # ... need code
 
