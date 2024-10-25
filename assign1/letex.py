@@ -1,4 +1,4 @@
-# <your name>
+# Christopher Sloggett
 #
 
 # CS358 Fall'24 Assignment 1 (Part B)
